@@ -6,11 +6,12 @@ use Apache::Constants qw(OK DECLINED SERVER_ERROR AUTH_REQUIRED);
 
 use 5.006;
 use Digest::MD5;
+use HTTP::Headers::Util qw(split_header_words);
 use DynaLoader;
 
 use strict;
 
-our $VERSION = '0.02';
+our $VERSION = '0.021';
 our @ISA = qw(DynaLoader Apache);
 
 __PACKAGE__->bootstrap($VERSION);
@@ -101,15 +102,17 @@ sub parse_digest_header {
 
   $log->info("Apache::AuthDigest::API - parsing $header_type: $header_info");
 
+  # ease my pain
+  my @parsed_header = split_header_words($header_info);
+
+  my %response = map { $_->[0] => $_->[1] } @parsed_header;
+
+  # take care of the first attribute, which is stuck in with Digest
+  $response{$parsed_header[0]->[2]} = $parsed_header[0]->[3];
+
   # We issued a Digest challenge - make sure we got Digest back.
-  return unless $header_info =~ m/^Digest/;
+  return unless exists $response{Digest};
     
-  # Parse the response header into a hash.
-  $header_info =~ s/^Digest\s+//;
-  $header_info =~ s/"//g;
-
-  my %response = map { split(/=/) } split(/,\s*/, $header_info);
-
   return \%response;
 }
 
@@ -123,15 +126,15 @@ Apache::AuthDigest::API - mod_perl API for Digest authentication
 
 =head1 SYNOPSIS
 
-PerlModule Apache::AuthDigest::API
-PerlModule My::DigestAuthenticator
+  PerlModule Apache::AuthDigest::API
+  PerlModule My::DigestAuthenticator
 
-<Location /protected>
-  PerlAuthenHandler My::DigestAuthenticator
-  Require valid-user
-  AuthType Digest
-  AuthName "cookbook"
-</Location>
+  <Location /protected>
+    PerlAuthenHandler My::DigestAuthenticator
+    Require valid-user
+    AuthType Digest
+    AuthName "cookbook"
+  </Location>
 
 =head1 DESCRIPTION
 
@@ -209,23 +212,23 @@ in the test suite for this package, as well as AuthDigest.pm.
 In general, the steps are the same as for Basic authentication, 
 examples of which abound on CPAN, the Eagle book, and the Cookbook:
 
-use Apache::AuthDigest::API;
+  use Apache::AuthDigest::API;
 
-sub handler {
+  sub handler {
 
-  my $r = Apache::AuthDigest::API->new(shift);
+    my $r = Apache::AuthDigest::API->new(shift);
 
-  my ($status, $response) = $r->get_digest_auth_response;
+    my ($status, $response) = $r->get_digest_auth_response;
 
-  return $status unless $status == OK;
+    return $status unless $status == OK;
 
-  my $digest = my_get_user_credentials_routine($r->user, $r->auth_name);
+    my $digest = my_get_user_credentials_routine($r->user, $r->auth_name);
 
-  return OK if $r->compare_digest_response($response, $digest);
+    return OK if $r->compare_digest_response($response, $digest);
 
-  $r->note_digest_auth_failure;
-  return AUTH_REQUIRED;
-}
+    $r->note_digest_auth_failure;
+    return AUTH_REQUIRED;
+  }
 
 =head1 NOTES
 

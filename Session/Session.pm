@@ -129,17 +129,17 @@ Apache::AuthDigest::API::Session - session-based Digest authentication
 
 =head1 SYNOPSIS
 
-PerlModule Apache::AuthDigest::API::Session
-PerlModule My::SessionAuthenticator
+  PerlModule Apache::AuthDigest::API::Session
+  PerlModule My::SessionAuthenticator
 
-<Location /protected>
-  PerlInitHandler My::SessionGenerator
-  PerlAuthenHandler My::SessionAuthenticator
-  Require valid-user
-  AuthType Digest
-  AuthName "cookbook"
-  DigestSessionKey MYSESSION
-</Location>
+  <Location /protected>
+    PerlInitHandler My::SessionGenerator
+    PerlAuthenHandler My::SessionAuthenticator
+    Require valid-user
+    AuthType Digest
+    AuthName "cookbook"
+    DigestSessionKey MYSESSION
+  </Location>
 
 =head1 DESCRIPTION
 

@@ -18,3 +18,10 @@ Revision history for Perl extension Apache::DigestAPI
 
         - never release on friday, especially friday
           mornings before coffee is fully consumed
+
+0.021 11.08.2002
+        - indented pod so it is actually readable
+            thanks Barrie
+        - moved to HTTP::Headers::Util::split_header_words() 
+          for header parsing
+            thanks to Rob Giseburt for the push

@@ -25,8 +25,9 @@ if ($^O =~ /Win32/) {
 WriteMakefile(
   NAME         => 'Apache::AuthDigest::API',
   VERSION_FROM => 'API.pm',
-  PREREQ_PM    => { mod_perl => 1.26,
-                    'Digest::MD5' => 2.13, },
+  PREREQ_PM    => { mod_perl              => 1.26,
+                    'Digest::MD5'         => 2.13,
+                    'HTTP::Headers::Util' => 1.09, },
   ABSTRACT     => 'mod_perl API for Digest Authentication',
   AUTHOR       => 'geoff@cpan.org',
   %config,

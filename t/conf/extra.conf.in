@@ -49,4 +49,13 @@ Alias /session @DocumentRoot@
   PerlInitHandler My::SessionGenerator
 </Location>
 
+<Location /parse>
+  SetHandler perl-script
+  PerlHandler 'sub { my $r = shift; $r->send_http_header("text/plain"); print $r->pnotes(URI); return Apache::OK }'
+  AuthType Digest
+  AuthName cookbook
+  Require valid-user
+  PerlAuthenHandler My::DigestAuthenticator
+</Location>
+
 LogLevel debug

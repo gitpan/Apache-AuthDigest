@@ -19,6 +19,7 @@ t/02api.t
 t/03auth.t
 t/04authz.t
 t/05session.t
+t/06parse.t
 t/99pod.t
 t/lib/perl/My/DigestAuthenticator.pm
 t/lib/perl/My/SessionAuthenticator.pm
@@ -26,3 +27,5 @@ t/lib/perl/My/SessionAuthorizor.pm
 t/lib/perl/My/SessionGenerator.pm
 t/conf/extra.conf.in
 t/conf/password_file
+contrib/AuthDigestDBI.pm
+contrib/README

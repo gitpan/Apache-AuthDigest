@@ -57,17 +57,17 @@ Apache::AuthzDigest - pick up the authorization pieces of mod_digest
 
 =head1 SYNOPSIS
 
-PerlModule Apache::AuthDigest
-PerlModule Apache::AuthzDigest
+  PerlModule Apache::AuthDigest
+  PerlModule Apache::AuthzDigest
 
-<Location /protected>
-  PerlAuthenHandler Apache::AuthDigest
-  PerlAuthzHandler Apache::AuthzDigest
-  Require user foo
-  AuthType Digest
-  AuthName "cookbook"
-  AuthDigestFile .htdigest
-</Location>
+  <Location /protected>
+    PerlAuthenHandler Apache::AuthDigest
+    PerlAuthzHandler Apache::AuthzDigest
+    Require user foo
+    AuthType Digest
+    AuthName "cookbook"
+    AuthDigestFile .htdigest
+  </Location>
 
 =head1 DESCRIPTION
 

@@ -18,6 +18,9 @@ sub handler {
 
   my $digest = get_credentials($r->user, $r->auth_name);
 
+  # for other testing purposes...
+  $r->pnotes(URI => $response->{uri});
+
   return OK if $r->compare_digest_response($response, $digest);
 
   $r->note_digest_auth_failure;

@@ -10,7 +10,7 @@ use Apache::AuthDigest::API;
 use DynaLoader;
 use strict;
 
-our $VERSION = '0.02';
+our $VERSION = '0.021';
 our @ISA = qw(DynaLoader);
 
 __PACKAGE__->bootstrap($VERSION);
@@ -124,15 +124,15 @@ Apache::AuthDigest - reimplementation of mod_digest.c in Perl
 
 =head1 SYNOPSIS
 
-PerlModule Apache::AuthDigest
+  PerlModule Apache::AuthDigest
 
-<Location /protected>
-  PerlAuthenHandler Apache::AuthDigest
-  Require valid-user
-  AuthType Digest
-  AuthName "cookbook"
-  AuthDigestFile .htdigest
-</Location>
+  <Location /protected>
+    PerlAuthenHandler Apache::AuthDigest
+    Require valid-user
+    AuthType Digest
+    AuthName "cookbook"
+    AuthDigestFile .htdigest
+  </Location>
 
 =head1 DESCRIPTION
 
@@ -151,32 +151,32 @@ a flat file.
 
 The configuration for Apache::AuthDigest is relatively simple:
 
-PerlModule Apache::AuthDigest
+  PerlModule Apache::AuthDigest
 
-<Location /protected>
-  PerlAuthenHandler Apache::AuthDigest
-  Require valid-user
-  AuthType Digest
-  AuthName "cookbook"
-  AuthDigestFile .htdigest
-</Location>
+  <Location /protected>
+    PerlAuthenHandler Apache::AuthDigest
+    Require valid-user
+    AuthType Digest
+    AuthName "cookbook"
+    AuthDigestFile .htdigest
+  </Location>
 
 please note that Apache::AuthDigest does not configure a handler
 for the authorization phase, which is a bit different than mod_digest.
 if you want to use something other than Require valid-user, you will
 need to use Apache::AuthzDigest:
 
-PerlModule Apache::AuthDigest
-PerlModule Apache::AuthzDigest
+  PerlModule Apache::AuthDigest
+  PerlModule Apache::AuthzDigest
 
-<Location /protected>
-  PerlAuthenHandler Apache::AuthDigest
-  PerlAuthzHandler Apache::AuthzDigest
-  Require user foo
-  AuthType Digest
-  AuthName "cookbook"
-  AuthDigestFile .htdigest
-</Location>
+  <Location /protected>
+    PerlAuthenHandler Apache::AuthDigest
+    PerlAuthzHandler Apache::AuthzDigest
+    Require user foo
+    AuthType Digest
+    AuthName "cookbook"
+    AuthDigestFile .htdigest
+  </Location>
 
 see the Apache::AuthzDigest manpage for more information.
 
