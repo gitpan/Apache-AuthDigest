@@ -4,7 +4,7 @@ use warnings FATAL => 'all';
 use Apache::Test;
 use Apache::TestRequest;
 
-plan tests => 6, have_lwp;
+plan tests => 7, have_lwp;
 
 my $url = '/dropin/index.html';
 
@@ -29,3 +29,7 @@ ok $response->code == 401;
 $response = GET $url, username => 'test', password => 'test';
 
 ok $response->code == 200;
+
+$response = GET $url, username => 'nouser', password => 'nopass';
+
+ok $response->code == 401;

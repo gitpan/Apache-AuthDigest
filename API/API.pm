@@ -10,7 +10,7 @@ use DynaLoader;
 
 use strict;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 our @ISA = qw(DynaLoader Apache);
 
 __PACKAGE__->bootstrap($VERSION);
@@ -51,7 +51,7 @@ sub get_digest_auth_response {
     $log->info("Client did not supply a Digest response");
 
     $r->note_digest_auth_failure;
-    return AUTH_REQUIRED
+    return AUTH_REQUIRED;
   }
   
   # Make sure that the response contained all the right info.
@@ -60,7 +60,7 @@ sub get_digest_auth_response {
       $log->warn("Required key '$key' not present in response");
   
       $r->note_digest_auth_failure;
-      return AUTH_REQUIRED
+      return AUTH_REQUIRED;
     }
   }
 
@@ -102,9 +102,8 @@ sub parse_digest_header {
   $log->info("Apache::AuthDigest::API - parsing $header_type: $header_info");
 
   # We issued a Digest challenge - make sure we got Digest back.
-  $log->info("Client did not supply a Digest response") && return
-    unless $header_info =~ m/^Digest/;
-
+  return unless $header_info =~ m/^Digest/;
+    
   # Parse the response header into a hash.
   $header_info =~ s/^Digest\s+//;
   $header_info =~ s/"//g;

@@ -10,7 +10,7 @@ use Apache::AuthDigest::API;
 use DynaLoader;
 use strict;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 our @ISA = qw(DynaLoader);
 
 __PACKAGE__->bootstrap($VERSION);
@@ -73,6 +73,8 @@ sub get_user_credentials {
     ($username, $userrealm, $digest) = split /:/, $line;
 
     last if ($user eq $username && $realm eq $userrealm);
+
+    $digest = undef;  # in case we fall through
   }
 
   chomp $digest;
@@ -90,8 +92,6 @@ sub AuthDigestFile ($$$) {
   die "Invalid AuthDigestFile $arg!" unless -f $arg;
 
   $cfg->{_password_file}  = $arg;
-
-  return DECLINE_CMD;
 }
 
 sub DIR_CREATE {

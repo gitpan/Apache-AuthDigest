@@ -4,6 +4,7 @@
 </Perl>
 
 PerlModule Apache::AuthDigest
+PerlModule Apache::AuthzDigest
 PerlModule Apache::AuthDigest::API
 PerlModule Apache::AuthDigest::API::Session
 PerlModule My::DigestAuthenticator
