@@ -58,4 +58,11 @@ Alias /session @DocumentRoot@
   PerlAuthenHandler My::DigestAuthenticator
 </Location>
 
+<Location /multi>
+  SetHandler perl-script
+  AuthName cookbook
+  Require valid-user
+  PerlAuthenHandler My::MultiAuthenticator
+</Location>
+
 LogLevel debug

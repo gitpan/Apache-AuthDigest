@@ -10,7 +10,7 @@ use Apache::AuthDigest::API;
 use DynaLoader;
 use strict;
 
-our $VERSION = '0.021';
+our $VERSION = '0.022';
 our @ISA = qw(DynaLoader);
 
 __PACKAGE__->bootstrap($VERSION);

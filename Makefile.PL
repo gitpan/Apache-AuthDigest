@@ -38,7 +38,7 @@ WriteMakefile(
   PREREQ_PM    => { mod_perl              => 1.26,
                     'Digest::MD5'         => 2.13,
                     'HTTP::Headers::Util' => 1.09, },
-  DIR          => [ qw(API Full Session) ],
+  DIR          => [ qw(API Full Session Multi) ],
   ABSTRACT     => 'mod_perl Digest authentication suite',
   AUTHOR       => 'geoff@cpan.org',
   clean        => { FILES => '*.xs*' },

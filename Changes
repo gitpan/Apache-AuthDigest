@@ -25,3 +25,7 @@ Revision history for Perl extension Apache::DigestAPI
         - moved to HTTP::Headers::Util::split_header_words() 
           for header parsing
             thanks to Rob Giseburt for the push
+
+0.022 12.19.2002
+        - added contrib/ and AuthDigestDBI.pm
+        - added preliminary Multi.pm and tests
